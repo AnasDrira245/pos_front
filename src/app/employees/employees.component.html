@@ -1,0 +1,76 @@
+
+<form [formGroup]="employeeFilterForm">
+
+    <div class="p-inputgroup">
+        <span class="p-inputgroup-addon">
+            <i class="pi pi-user"></i>
+        </span>
+        <input id="name_substr" type="text" formControlName="name_substr" pInputText placeholder="Employee Name" />
+    </div>
+  
+</form>
+
+<p-button (click)="openAddEmployeeDialog()" label="Add Employee" icon="pi pi-file-import"></p-button>
+<p-button (click)="openImportEmployeesDialog()" label="Import Employees" icon="pi pi-file-import"></p-button>
+
+<div class="card">
+    <p-table
+        #dt1
+        [value]="employees"
+        dataKey="id"
+        [rows]="10"
+        [totalRecords]="totalRecords"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10, 25, 50, 100]"
+        [loading]="loading"
+        [paginator]="true"
+        [lazy]="true"
+        (onPage)="onPageChanged($event)"
+        currentPageReportTemplate="{first}/{last} of {totalRecords}"
+        >
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="min-width:15rem">
+                    <div class="flex align-items-center">
+                        Number
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex align-items-center">
+                        Name
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex align-items-center">
+                        Gender
+                    </div>
+                </th>
+                <th style="min-width:15rem">
+                    <div class="flex align-items-center">
+                        Phone Number
+                    </div>
+                </th>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>
+                    {{ customer.number }}
+                </td>
+                <td>
+                    {{ customer.first_name + ' ' + customer.last_name }}
+                </td>
+                <td>
+                    {{ customer.gender }}
+                </td>
+                <td>
+                    {{ customer.phone_number }}
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="7">No Employees found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

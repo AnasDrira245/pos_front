@@ -1,0 +1,32 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="flex-auto">
+            <label class="block font-bold mb-2" for="username">email</label>
+            <input id="username" type="text" formControlName="username" pInputText/>
+            <div *ngIf="loginForm.controls['username'].invalid && (loginForm.controls['username'].dirty || loginForm.controls['username'].touched)"
+                class="alert">
+
+                <div class="red-text" *ngIf="loginForm.controls['username'].errors?.['required']">
+                    Email is required.
+                </div>
+
+                <div class="red-text" *ngIf="loginForm.controls['username'].errors?.['email']">
+                    Invalid Email format
+                </div>
+            </div>
+        </div>        
+        <div class="flex-auto">
+            <div class="card flex justify-content-center">
+                <label for="password">Password</label>
+                <p-password formControlName="password" [feedback]="false"/>
+                 <div *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)"
+                    class="alert">
+                    <div class="red-text" *ngIf="loginForm.controls['password'].errors?.['required']">
+                        Password is required
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </div>
+    <p-button type="submit" [disabled]="!loginForm.valid">Submit</p-button>
+</form>

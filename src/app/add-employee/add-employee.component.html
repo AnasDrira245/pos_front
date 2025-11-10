@@ -1,0 +1,149 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="card flex flex-wrap gap-3 p-fluid">
+        <div class="flex-auto">
+            <label class="block font-bold mb-2" for="first_name">First Name</label>
+            <input id="first_name" type="text" formControlName="first_name" pInputText/>
+            <div *ngIf="employeeForm.controls['first_name'].invalid && (employeeForm.controls['first_name'].dirty || employeeForm.controls['first_name'].touched)"
+                class="alert">
+
+                <div class="red-text" *ngIf="employeeForm.controls['first_name'].errors?.['required']">
+                    First Name is required.
+                </div>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <label class="block font-bold mb-2" for="last_name">Last Name</label>
+            <input id="last_name" type="text" formControlName="last_name" pInputText/>
+            <div *ngIf="employeeForm.controls['last_name'].invalid && (employeeForm.controls['last_name'].dirty || employeeForm.controls['last_name'].touched)"
+                class="alert">
+
+                <div class="red-text" *ngIf="employeeForm.controls['last_name'].errors?.['required']">
+                    Last Name is required.
+                </div>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <label for="email">Email</label>
+            <input id="email" type="text" formControlName="email" pInputText/>
+            <div *ngIf="employeeForm.controls['email'].invalid && (employeeForm.controls['email'].dirty || employeeForm.controls['email'].touched)"
+                class="alert">
+
+                <div class="red-text" *ngIf="employeeForm.controls['email'].errors?.['required']">
+                    Email is required.
+                </div>
+                <div class="red-text" *ngIf="employeeForm.controls['email'].errors?.['email']">
+                    Invalid Email format
+                </div>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <label for="number">Number</label>
+            <p-inputNumber inputId="number" formControlName="number"> </p-inputNumber>
+            <div *ngIf="employeeForm.controls['number'].invalid && (employeeForm.controls['number'].dirty || employeeForm.controls['number'].touched)"
+                class="alert">
+
+                <div class="red-text" *ngIf="employeeForm.controls['number'].errors?.['min']">
+                    Number should be positive.
+                </div>
+                <div class="red-text" *ngIf="employeeForm.controls['number'].errors?.['required']">
+                    Number is required
+                </div>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <div class="card flex justify-content-center">
+                <label for="birth_date">Birth date</label>
+                <p-calendar formControlName="birth_date" [showIcon]="true"></p-calendar>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <label class="block font-bold mb-2" for="address">Address</label>
+            <input id="address" type="text" formControlName="address" pInputText/>
+        </div>
+        <div class="flex-auto">
+            <label class="block font-bold mb-2" for="cnss_number">Cnss Number</label>
+            <input id="cnss_number" type="text" formControlName="cnss_number" pInputText/>
+            <div *ngIf="employeeForm.controls['cnss_number'].invalid && (employeeForm.controls['cnss_number'].dirty || employeeForm.controls['cnss_number'].touched)"
+                class="alert">
+                <div class="red-text" *ngIf="employeeForm.controls['cnss_number'].errors?.['pattern']">
+                    Cnss number format should be 8 digits-2 digites e.g 12345678-12.
+                </div>
+                <div class="red-text" *ngIf="employeeForm.controls['cnss_number'].errors?.['requiredCnssNumber']">
+                    Cnss number is required for CDI and CDD contracts
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="contract_type">Contract Type</label>
+            <p-selectButton [options]="contratTypes" [multiple]="false" formControlName="contract_type" optionLabel="view_value" optionValue="value"></p-selectButton>
+            <div *ngIf="employeeForm.controls['contract_type'].invalid && (employeeForm.controls['contract_type'].dirty || employeeForm.controls['contract_type'].touched)"
+                class="alert">
+                <div class="red-text" *ngIf="employeeForm.controls['contract_type'].errors?.['required']">
+                    Contract Type is required
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="gender">Gender</label>
+            <p-selectButton [options]="genders" [multiple]="false" formControlName="gender" optionLabel="view_value" optionValue="value"></p-selectButton>
+        </div>
+        <div>
+            <label for="roles">Roles</label>
+            <p-selectButton [options]="roles" [multiple]="true" formControlName="roles" optionLabel="view_value" optionValue="value"></p-selectButton>
+            <div *ngIf="employeeForm.controls['roles'].invalid && (employeeForm.controls['roles'].dirty || employeeForm.controls['roles'].touched)"
+                class="alert">
+
+                <div class="red-text" *ngIf="employeeForm.controls['roles'].errors?.['required']">
+                    Roles are required.
+                </div>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <label class="block font-bold mb-2" for="address">Phone Number</label>
+            <input id="phone_number" type="text" formControlName="phone_number" pInputText/>
+        </div>
+        <div class="flex-auto">
+            <div class="card flex justify-content-center">
+                <label for="password">Password</label>
+                <p-password formControlName="password">
+                     <ng-template pTemplate="header">
+                         <h6>Pick a password</h6>
+                     </ng-template>
+                     <ng-template pTemplate="footer">
+                         <p-divider></p-divider>
+                         <p class="mt-2">Suggestions</p>
+                         <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                             <li>At least one lowercase</li>
+                             <li>At least one uppercase</li>
+                             <li>At least one numeric</li>
+                             <li>Minimum 8 characters</li>
+                         </ul>
+                     </ng-template>
+                 </p-password>
+                 <div *ngIf="employeeForm.controls['password'].invalid && (employeeForm.controls['password'].dirty || employeeForm.controls['password'].touched)"
+                    class="alert">
+                    <div class="red-text" *ngIf="employeeForm.controls['password'].errors?.['required']">
+                        Password is required
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-auto">
+            <div class="card flex justify-content-center">
+                <label for="confirm_password">Confirm Password</label>
+                <p-password formControlName="confirm_password" [feedback]="false"/>
+                <div *ngIf="employeeForm.controls['confirm_password'].invalid && (employeeForm.controls['confirm_password'].dirty || employeeForm.controls['confirm_password'].touched)"
+                    class="alert">
+    
+                    <div class="red-text" *ngIf="employeeForm.controls['confirm_password'].errors?.['required']">
+                        Confirm password is required.
+                    </div>
+                    <div class="red-text" *ngIf="employeeForm.controls['confirm_password'].errors?.['passwordMatch']">
+                        Password and Confirm Password must match
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p-button type="submit" [disabled]="!employeeForm.valid">Submit</p-button>
+</form>
